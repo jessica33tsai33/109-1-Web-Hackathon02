@@ -24,15 +24,61 @@ class Sudoku extends Component {
 
     handle_grid_1x1_click = (row_index, col_index) => {
         // TODO
-
+        //console.log(this.state.gridValues[row_index][col_index]);
+        if(this.state.problem.content[row_index][col_index] === "0"){
+            //console.log("selectable");
+            this.setState({
+                selectedGrid: {row_index: row_index, col_index: col_index},
+            });
+        }
+        else{
+            this.setState({
+                selectedGrid: {row_index: -1, col_index: -1},
+            });
+        }
+        
         // Useful hints:
-        // console.log(row_index, col_index)
+        // console.log(row_index, col_index);
         // console.log(this.state.selectedGrid)
     }
 
     handleKeyDownEvent = (event) => {
         // TODO
+        let check = true;
+        if (this.state.gridValues !== null && this.state.selectedGrid.row_index !== -1 && this.state.selectedGrid.col_index !== -1 && (event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {
+            
+            // check row & col
+            for(let i = 0; i < 9; i++){
+                if(i !== this.state.selectedGrid.col_index && this.state.problem.content[this.state.selectedGrid.row_index][i] === event.key && event.key !== "0"){
+                    check = false;
+                    break;
+                }
+                if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === event.key && event.key !== "0"){
+                    check = false;
+                    break;
+                }
+            }
 
+            //check square
+            let i_row = parseInt(this.state.selectedGrid.row_index/3, 10);
+            let i_col = parseInt(this.state.selectedGrid.col_index/3, 10);
+            for(let i=0; i<3; i++){
+                for(let j=0; j<3; j++){
+                    if(i !== this.state.selectedGrid.row_index && j !== this.state.selectedGrid.col_index && this.state.problem.content[i_row*3+i][i_col*3+j] === event.key && event.key !== "0"){
+                        check = false;
+                        break;
+                    }
+                }
+            }
+
+            if(check === true){
+                let newGridValues = this.state.gridValues;
+                newGridValues[this.state.selectedGrid.row_index][this.state.selectedGrid.col_index] = event.key;
+                this.setState({
+                    gridValues: newGridValues,
+                });
+            }
+        }
         // Useful hints:
         // console.log(event)
         // if (this.state.gridValues !== null && this.state.selectedGrid.row_index !== -1 && this.state.selectedGrid.col_index !== -1 && (event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {}
@@ -41,6 +87,41 @@ class Sudoku extends Component {
 
     handleScreenKeyboardInput = (num) => {
         // TODO
+        let check = true;
+        if (this.state.gridValues !== null && this.state.selectedGrid.row_index !== -1 && this.state.selectedGrid.col_index !== -1) {
+            
+            // check row & col
+            for(let i = 0; i < 9; i++){
+                if(i !== this.state.selectedGrid.col_index && this.state.problem.content[this.state.selectedGrid.row_index][i] === num.toString() && num !== 0){
+                    check = false;
+                    break;
+                }
+                if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === num.toString() && num !== 0){
+                    check = false;
+                    break;
+                }
+            }
+
+            //check square
+            let i_row = parseInt(this.state.selectedGrid.row_index/3, 10);
+            let i_col = parseInt(this.state.selectedGrid.col_index/3, 10);
+            for(let i=0; i<3; i++){
+                for(let j=0; j<3; j++){
+                    if(i !== this.state.selectedGrid.row_index && j !== this.state.selectedGrid.col_index && this.state.problem.content[i_row*3+i][i_col*3+j] === num.toString() && num !== 0){
+                        check = false;
+                        break;
+                    }
+                }
+            }
+
+            if(check === true){
+                let newGridValues = this.state.gridValues;
+                newGridValues[this.state.selectedGrid.row_index][this.state.selectedGrid.col_index] = num.toString();
+                this.setState({
+                    gridValues: newGridValues,
+                });
+            }
+        }
     }
 
     componentDidMount = () => {
