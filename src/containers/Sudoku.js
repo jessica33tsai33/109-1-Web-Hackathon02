@@ -56,6 +56,8 @@ class Sudoku extends Component {
                     newConflict.row_index =  this.state.selectedGrid.row_index;
                     newConflict.col_index =  i;
                     newConflicts = [...newConflicts, newConflict];
+                    this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                    setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                 }
                 if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === event.key && event.key !== "0"){
                     check = false;
@@ -63,6 +65,8 @@ class Sudoku extends Component {
                     newConflict.row_index =  i;
                     newConflict.col_index =  this.state.selectedGrid.col_index;
                     newConflicts = [...newConflicts, newConflict];
+                    this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                    setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                 }
             }
 
@@ -77,6 +81,8 @@ class Sudoku extends Component {
                         newConflict.row_index = i_row*3+i;
                         newConflict.col_index = i_col*3+j;
                         newConflicts = [...newConflicts, newConflict];
+                        this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                        setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                     }
                 }
             }
@@ -113,6 +119,8 @@ class Sudoku extends Component {
                     newConflict.row_index =  this.state.selectedGrid.row_index;
                     newConflict.col_index =  i;
                     newConflicts = [...newConflicts, newConflict];
+                    this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                    setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                 }
                 if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === num.toString() && num !== 0){
                     check = false;
@@ -120,6 +128,8 @@ class Sudoku extends Component {
                     newConflict.row_index =  i;
                     newConflict.col_index =  this.state.selectedGrid.col_index;
                     newConflicts = [...newConflicts, newConflict];
+                    this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                    setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                 }
             }
 
@@ -134,6 +144,8 @@ class Sudoku extends Component {
                         newConflict.row_index = i_row*3+i;
                         newConflict.col_index = i_col*3+j;
                         newConflicts = [...newConflicts, newConflict];
+                        this.setState({ gameBoardBorderStyle: "8px solid #E77" });
+                        setTimeout(() => { this.setState({ gameBoardBorderStyle: "8px solid #000" }); }, 1000);
                     }
                 }
             }
