@@ -161,7 +161,8 @@ class Sudoku extends Component {
             loading: true,
             problem: null,
             gridValues: null,
-            selectedGrid: { row_index: -1, col_index: -1 }
+            selectedGrid: { row_index: -1, col_index: -1 },
+            conflicts: [{ row_index: -1, col_index: -1 }]
         });
 
         const problem = await require(`../problems/${name}`)
