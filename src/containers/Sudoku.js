@@ -45,7 +45,6 @@ class Sudoku extends Component {
     handleKeyDownEvent = (event) => {
         // TODO
         let check = true;
-        
         let newConflicts = [];
         if (this.state.gridValues !== null && this.state.selectedGrid.row_index !== -1 && this.state.selectedGrid.col_index !== -1 && (event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {
             
@@ -56,8 +55,6 @@ class Sudoku extends Component {
                     let newConflict = {};
                     newConflict.row_index =  this.state.selectedGrid.row_index;
                     newConflict.col_index =  i;
-                    //console.log("conflict_col", this.state.selectedGrid.row_index);
-                    //console.log("conflict_col", i);
                     newConflicts = [...newConflicts, newConflict];
                 }
                 if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === event.key && event.key !== "0"){
@@ -65,8 +62,6 @@ class Sudoku extends Component {
                     let newConflict = {};
                     newConflict.row_index =  i;
                     newConflict.col_index =  this.state.selectedGrid.col_index;
-                    //console.log("conflict_row", i);
-                    //console.log("conflict_row", this.state.selectedGrid.col_index);
                     newConflicts = [...newConflicts, newConflict];
                 }
             }
@@ -81,8 +76,6 @@ class Sudoku extends Component {
                         let newConflict = {};
                         newConflict.row_index = i_row*3+i;
                         newConflict.col_index = i_col*3+j;
-                        //console.log("conflic_square", i_row*3+i);
-                        //console.log("conflic_square", i_col*3+j);
                         newConflicts = [...newConflicts, newConflict];
                     }
                 }
@@ -95,7 +88,7 @@ class Sudoku extends Component {
                     gridValues: newGridValues,
                 });
             }
-            //console.log(newConflicts);
+            
             this.setState({
                 conflicts: newConflicts,
             });
@@ -109,17 +102,24 @@ class Sudoku extends Component {
     handleScreenKeyboardInput = (num) => {
         // TODO
         let check = true;
+        let newConflicts = [];
         if (this.state.gridValues !== null && this.state.selectedGrid.row_index !== -1 && this.state.selectedGrid.col_index !== -1) {
             
             // check row & col
             for(let i = 0; i < 9; i++){
                 if(i !== this.state.selectedGrid.col_index && this.state.problem.content[this.state.selectedGrid.row_index][i] === num.toString() && num !== 0){
                     check = false;
-                    break;
+                    let newConflict = {};
+                    newConflict.row_index =  this.state.selectedGrid.row_index;
+                    newConflict.col_index =  i;
+                    newConflicts = [...newConflicts, newConflict];
                 }
                 if(i !== this.state.selectedGrid.row_index && this.state.problem.content[i][this.state.selectedGrid.col_index] === num.toString() && num !== 0){
                     check = false;
-                    break;
+                    let newConflict = {};
+                    newConflict.row_index =  i;
+                    newConflict.col_index =  this.state.selectedGrid.col_index;
+                    newConflicts = [...newConflicts, newConflict];
                 }
             }
 
@@ -130,7 +130,10 @@ class Sudoku extends Component {
                 for(let j=0; j<3; j++){
                     if(i !== this.state.selectedGrid.row_index && j !== this.state.selectedGrid.col_index && this.state.problem.content[i_row*3+i][i_col*3+j] === num.toString() && num !== 0){
                         check = false;
-                        break;
+                        let newConflict = {};
+                        newConflict.row_index = i_row*3+i;
+                        newConflict.col_index = i_col*3+j;
+                        newConflicts = [...newConflicts, newConflict];
                     }
                 }
             }
@@ -142,6 +145,10 @@ class Sudoku extends Component {
                     gridValues: newGridValues,
                 });
             }
+            
+            this.setState({
+                conflicts: newConflicts,
+            });
         }
     }
 
